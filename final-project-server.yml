@@ -24,10 +24,10 @@ Resources:
           FromPort: 80
           ToPort: 80
           CidrIp: 0.0.0.0/0
-        - IpProtocol: tcp  # DEBUG: Make the SSH port open
-          FromPort: 22
-          ToPort: 22
-          CidrIp: 0.0.0.0/0
+        # - IpProtocol: tcp  # DEBUG: Make the SSH port open
+        #   FromPort: 22
+        #   ToPort: 22
+        #   CidrIp: 0.0.0.0/0
       SecurityGroupEgress:
         - IpProtocol: tcp
           FromPort: 0
@@ -66,7 +66,7 @@ Resources:
           unzip -o udacity.zip
 
       ImageId: ami-07b4f3c02c7f83d59 # Ubuntu 18
-      KeyName: "udacity-final-project" # DEBUG: Note that create an key-pair from EC2 console in prior
+      # KeyName: "udacity-final-project" # DEBUG: Note that create an key-pair from EC2 console in prior
       InstanceType: t3.medium
       BlockDeviceMappings:
         - DeviceName: "/dev/sdk"
@@ -79,7 +79,7 @@ Resources:
     Type: AWS::AutoScaling::AutoScalingGroup
     Properties:
       VPCZoneIdentifier:
-        - Fn::ImportValue: !Sub "${EnvironmentName}-PUB-NETS"  # DEBUG: -PUB-NETS
+        - Fn::ImportValue: !Sub "${EnvironmentName}-PRIV-NETS"  # DEBUG: -PUB-NETS
       LaunchConfigurationName:
         Ref: WebAppLaunchConfig
       MinSize: "1"
